@@ -52,4 +52,3 @@ class UsageRecord(models.Model):
 
     def __unicode__(self):
         return '%d,%s,%s'%(self.id, self.asset, self.user)
-
