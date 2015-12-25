@@ -40,7 +40,7 @@ class Asset(models.Model):
 
 
 class Attributes(models.Model):
-    asset_id = models.ForeignKey(Asset)
+    asset = models.ForeignKey(Asset)
     attribute_key = models.CharField(max_length=300)
     attribute_value = models.CharField(max_length=300)
 
@@ -53,8 +53,8 @@ class Attributes(models.Model):
 
 
 class UsageRecord(models.Model):
-    asset_id = models.ForeignKey(Asset)
-    user_id = models.ForeignKey(User)
+    asset = models.ForeignKey(Asset)
+    user = models.ForeignKey(User)
     begin_date = models.DateField()
     end_date = models.DateField(blank=True, null=True)
 
@@ -67,8 +67,8 @@ class UsageRecord(models.Model):
 
 
 class Maintenance(models.Model):
-    asset_id = models.ForeignKey(Asset)
-    user_id = models.ForeignKey(User, blank=True, null=True)
+    asset = models.ForeignKey(Asset)
+    user = models.ForeignKey(User, blank=True, null=True)
     fault_cause = models.CharField(max_length=3000)
     occur_date = models.DateField()
     repair_date = models.DateField(blank=True, null=True)
