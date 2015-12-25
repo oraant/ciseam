@@ -18,6 +18,10 @@ class User(models.Model):
 
     def __unicode__(self):
         return '%d,%s,%s'%(self.id, self.user_name, self.user_comment)
+    def keys(self):
+        return ["用户ID", "用户名", "电话", "QQ号", "邮箱", "备注"]
+    def values(self):
+        return [self.id, self.user_name, self.tel, self.qq, self.email, self.user_comment]
 
 
 class Asset(models.Model):
@@ -29,6 +33,10 @@ class Asset(models.Model):
 
     def __unicode__(self):
         return '%d,%s,%s'%(self.id, self.asset_name, self.asset_mark)
+    def keys(self):
+        return ["资产ID", "资产编号", "资产名称", "购买日期", "保修期", "价格"]
+    def values(self):
+        return [self.id, self.asset_mark, self.asset_name, self.intake_date, self.warranty_period, self.price]
 
 
 class Attributes(models.Model):
@@ -38,6 +46,10 @@ class Attributes(models.Model):
 
     def __unicode__(self):
         return '%d,%s,%s'%(self.id, self.attribute_key, self.attribute_value)
+    def keys(self):
+        return ["属性ID", "资产编号", "资产属性", "资产属性值"]
+    def values(self):
+        return [self.id, self.asset_id, self.attribute_key, self.attribute_value]
 
 
 class UsageRecord(models.Model):
@@ -48,6 +60,10 @@ class UsageRecord(models.Model):
 
     def __unicode__(self):
         return '%d,%s,%s'%(self.id, self.asset_id, self.user_id)
+    def keys(self):
+        return ["记录ID", "资产ID", "用户ID", "开始使用时间", "归还时间"]
+    def values(self):
+        return [self.id, self.asset_id, self.user_id, self.begin_date, self.end_date]
 
 
 class Maintenance(models.Model):
@@ -60,3 +76,7 @@ class Maintenance(models.Model):
 
     def __unicode__(self):
         return '%d,%s,%s,%s'%(self.id, self.asset_id, self.user_id, self.fault_cause)
+    def keys(self):
+        return ["记录ID", "资产ID", "用户ID", "故障原因", "出现日期", "修复日期", "修复结果"]
+    def values(self):
+        return [self.id, self.asset_id, self.user_id, self.fault_cause, self.occur_date, self.repair_date, self.repair_result]
