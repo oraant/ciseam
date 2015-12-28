@@ -19,5 +19,11 @@ from eam import views as eam_v
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^', eam_v.index),
+    url(r'^$', eam_v.index),
+    url(r'^filter_user/', eam_v.filter_user),
+    url(r'^filter_asset/', eam_v.filter_asset),
+    url(r'^filter_attributes/', eam_v.filter_attributes),
+    url(r'^filter_maintenance/', eam_v.filter_maintenance),
+    url(r'^filter_usagerecord/', eam_v.filter_usagerecord),
+    
 ]
