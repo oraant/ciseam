@@ -1,7 +1,8 @@
 #coding:utf-8
 #!!测试什么时候加载的，应该什么时候关闭cursor
 #!!try里面都加上日志什么的
-#!!注意，MySQL的增删查改是需要引号的，浏览器传过来的是unicode对象
+#!!注意，MySQL的增删查改是需要引号的，返回的是tuple对象，浏览器传过来的是unicode对象
+#!!filter_data里面的输出要把print改成别的
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.core.serializers.json import DjangoJSONEncoder
@@ -163,13 +164,15 @@ def filter_data(sql,req,exact=False):#don't forget try..catch..else
         cursor.execute(sql)
         data = cursor.fetchall()
     except Exception as e:
-        print sql
-        print e
-        data = []
+        result=[u'执行结果：',u'执行失败']
+        errorsql=[u'错误SQL：',sql]
+        errormsg=[u'错误提示：',str(e)]
+        data = [result,errorsql,errormsg]
 
     return data
 
-def update_data(sql,req):#id is not null
+#make sure the id column is not null
+def update_data(sql,req):
     try:
         id = req.GET['id']
     except:
@@ -201,6 +204,7 @@ def delete_data(sql,req):
         return '没有指定要删除的ID'
     return execute(sql)
 
+#execute sql statement and return the result msg
 def execute(sql):
     try:
         cursor.execute(sql)
