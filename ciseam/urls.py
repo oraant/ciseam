@@ -21,26 +21,31 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', eam_v.index),
 
+    url(r'^fetch_user/', eam_v.fetch_user),
     url(r'^filter_user/', eam_v.filter_user),
     url(r'^update_user/', eam_v.update_user),
     url(r'^delete_user/', eam_v.delete_user),
     url(r'^insert_user/', eam_v.insert_user),
 
+    url(r'^fetch_asset/', eam_v.fetch_asset),
     url(r'^filter_asset/', eam_v.filter_asset),
     url(r'^update_asset/', eam_v.update_asset),
     url(r'^delete_asset/', eam_v.delete_asset),
     url(r'^insert_asset/', eam_v.insert_asset),
 
+    url(r'^fetch_attributes/', eam_v.fetch_attributes),
     url(r'^filter_attributes/', eam_v.filter_attributes),
     url(r'^update_attributes/', eam_v.update_attributes),
     url(r'^delete_attributes/', eam_v.delete_attributes),
     url(r'^insert_attributes/', eam_v.insert_attributes),
 
+    url(r'^fetch_maintenance/', eam_v.fetch_maintenance),
     url(r'^filter_maintenance/', eam_v.filter_maintenance),
     url(r'^update_maintenance/', eam_v.update_maintenance),
     url(r'^delete_maintenance/', eam_v.delete_maintenance),
     url(r'^insert_maintenance/', eam_v.insert_maintenance),
 
+    url(r'^fetch_usagerecord/', eam_v.fetch_usagerecord),
     url(r'^filter_usagerecord/', eam_v.filter_usagerecord),
     url(r'^update_usagerecord/', eam_v.update_usagerecord),
     url(r'^delete_usagerecord/', eam_v.delete_usagerecord),

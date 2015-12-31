@@ -1,0 +1,38 @@
+{% extends 'show_table.html' %}
+{% block js %}
+<script>
+    var headlist = {{ headlist|safe }};
+    var bodylist = {{ bodylist|safe }};
+
+    var table = document.getElementById("table");
+    fillTable(table,headlist,bodylist)
+    extendTable(table)
+
+    //为一个table增加扩展列
+    function extendTable(tab){
+        base_table = "user"
+
+        th = document.createElement("th")
+        th.innerHTML = "扩展"
+        tab.tHead.rows[0].appendChild(th)
+
+        for (i in tab.tBodies[0].rows){
+            tr = tab.tBodies[0].rows[i]
+            id = tr.cells[0].innerHTML
+            td = tr.insertCell()
+
+            link1 = document.createElement("a");
+            link1.innerHTML = "修改"
+            link1.href = "http://" + window.location.host + "/update_" + base_table + "/?id=" + id
+
+            link2 = document.createElement("a");
+            link2.innerHTML = "删除"
+            link2.href = "http://" + window.location.host + "/delete_" + base_table + "/?id=" + id
+
+            td.appendChild(link1)
+            td.appendChild(document.createTextNode(' / '))
+            td.appendChild(link2)
+        }
+    }
+</script>
+{% endblock%}
