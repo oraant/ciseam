@@ -24,8 +24,10 @@ urlpatterns = [
     url(r'^fetch_user/', eam_v.fetch_user),
     url(r'^filter_user/', eam_v.filter_user),
     url(r'^update_user/', eam_v.update_user),
+    url(r'^update_user_pre/', eam_v.update_user_pre),
     url(r'^delete_user/', eam_v.delete_user),
     url(r'^insert_user/', eam_v.insert_user),
+    url(r'^insert_user_pre/', eam_v.insert_user_pre),
 
     url(r'^fetch_asset/', eam_v.fetch_asset),
     url(r'^filter_asset/', eam_v.filter_asset),

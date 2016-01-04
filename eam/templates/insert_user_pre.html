@@ -1,0 +1,22 @@
+{% extends 'insert_row_pre.html' %}
+
+{% block update %}
+
+    <p id=title></p>
+
+    <form id="form" class="form-horizontal" action="/insert_user" method="get">
+        <p>用户ID： <input type="text" name="id"></p>
+        <p>姓名：   <input type="text" name="user_name"></p>
+        <p>电话：   <input type="text" name="tel"></p>
+        <p>QQ号：   <input type="text" name="qq"></p>
+        <p>邮箱：   <input type="text" name="email"></p>
+        <p>备注：   <input type="text" name="user_comment"></p>
+        <p><input type="submit" value="提交"></p>
+    </form>
+
+    <script>
+        //!需要有表单验证
+
+    </script>
+
+{% endblock %}

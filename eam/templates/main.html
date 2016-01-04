@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row-fluid">
+
+        <div class="col-md-2">
+            <div id="outline" class="list-group">
+                <a class="list-group-item active">管理</a>
+                <div class="list-group-item"> <a href="/filter_user">人员管理</a>  </div>
+                <div class="list-group-item"> <a href="/filter_asset">资产管理</a> </div>
+
+                <a class="list-group-item active">记录</a>
+                <div class="list-group-item"> <a href="/filter_maintenance">维修记录</a> </div>
+                <div class="list-group-item"> <a href="/filter_usagerecord">使用记录</a> </div>
+            </div>
+        </div>
+
+        <div class="col-md-10">
+            {% block page %}{% endblock %}
+        </div>
+
+    </div>
+
+{% endblock %}

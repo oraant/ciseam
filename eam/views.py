@@ -15,14 +15,8 @@ cursor = conn.cursor()
 cursor.execute("SET NAMES utf8")
 
 # Create your views here.
-def index(request):
-    #data = delete_user(request)
-    #data = insert_user(request)
-    #data = filter_attributes(request)
-    try:
-        return HttpResponse(data)
-    except Exception as e:
-        return HttpResponse(u'欢迎光临CISEAM')
+def index(req):
+    return render(req, 'index.html')
 
 #------------------------------------------------------------------------------------------------------------------
 #http://192.168.18.132:8000/filter_user/?id=&user_name=&tel=&qq=&email=&user_comment=
@@ -34,22 +28,38 @@ def filter_user(req,exact=False):
 
     table = format_table(column,data)
     return render(req, 'show_user.html', table)
-fetch_user = functools.partial(filter_user, exact=True)
+
+def fetch_user(req):
+    sql='select id,user_name,tel,qq,email,user_comment from eam_user'
+    data=filter_data(sql,req,True)
+    return data
 
 def update_user(req):
     sql = 'update eam_user'
     msg = update_data(sql,req)
-    return HttpResponse(msg)
+    msg = {'msg':msg}
+    return render(req, 'execute_msg.html', msg)
+
+def update_user_pre(req):
+    data = fetch_user(req)
+    data = json.dumps(data, cls=DjangoJSONEncoder)
+    data = {'data':data}
+    return render(req, 'update_user_pre.html', data)
 
 def insert_user(req):
     sql = 'insert into eam_user'
     msg = insert_data(sql,req)
-    return HttpResponse(msg)
+    msg = {'msg':msg}
+    return render(req, 'execute_msg.html', msg)
+
+def insert_user_pre(req):
+    return render(req, 'insert_user_pre.html')
 
 def delete_user(req):
     sql = 'delete from eam_user'
     msg = delete_data(sql,req)
-    return HttpResponse(msg)
+    msg = {'msg':msg}
+    return render(req, 'execute_msg.html', msg)
 
 #------------------------------------------------------------------------------------------------------------------
 #http://192.168.18.132:8000/filter_asset/?id=&asset_mark=&asset_name=&intake_date=&warranty_period=&price=
@@ -215,9 +225,9 @@ def execute(sql):
     try:
         cursor.execute(sql)
         conn.commit()
-        return '没有找到对应的行' if cursor.rowcount==0 else '执行成功'
+        return '没有找到对应的行或内容未曾修改' if cursor.rowcount==0 else '执行成功'
     except Exception as e:
-        return u'执行失败<br>SQL:%s<br>Exception:%s'%(sql,str(e))
+        return u'执行失败\nSQL:%s\nException:%s'%(sql,str(e))
 
 #format return data with json
 def format_table(column,data):

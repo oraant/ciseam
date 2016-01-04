@@ -3,7 +3,7 @@
 
     <head>
 
-        <title>CISEAM</title>
+        <title>CIS资产管理系统</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" />
         <script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
@@ -15,16 +15,20 @@
     
     <body>
 
-        <div id="header">
-            {% include 'header.html' %}
-        </div>
+        <div class="container-fluid">
+
+            <div id="header" class="row">
+                {% include 'header.html' %}
+            </div>
     
-        <div id="content">
-            {% block content %}{% endblock %}
-        </div>
+            <div id="content" class="row" align="center">
+                {% block content %}{% endblock %}
+            </div>
     
-        <div id="footer">
-            {% include 'footer.html'%}
+            <div id="footer" class="row" align="center">
+                {% include 'footer.html'%}
+            </div>
+
         </div>
 
     </body>

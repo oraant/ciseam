@@ -18,7 +18,7 @@
             th.innerHTML = "扩展"
             tab.tHead.rows[0].appendChild(th)
     
-            for (i in tab.tBodies[0].rows){
+            for (var i=0;i < tab.tBodies[0].rows.length;i++){
                 tr = tab.tBodies[0].rows[i]
                 id = tr.cells[0].innerHTML
                 td = tr.insertCell()
