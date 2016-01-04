@@ -1,0 +1,21 @@
+{% extends 'insert_row_pre.html' %}
+
+{% block insert %}
+
+    <p id=title></p>
+
+    <form id="form" class="form-horizontal" action="/insert_usagerecord" method="get">
+        <p>记录ID： <input type="text" name="id"></p>
+        <p>资产ID：   <input type="text" name="asset_id"></p>
+        <p>用户ID：   <input type="text" name="user_id"></p>
+        <p>借出日期：   <input type="text" name="begin_date"></p>
+        <p>归还日期：   <input type="text" name="end_date"></p>
+        <p><input type="submit" value="提交"></p>
+    </form>
+
+    <script>
+        //!需要有表单验证
+
+    </script>
+
+{% endblock %}

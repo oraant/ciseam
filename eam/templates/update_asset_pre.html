@@ -1,0 +1,39 @@
+{% extends 'update_row_pre.html' %}
+
+{% block update %}
+
+    <p id=title></p>
+
+    <form id="form" class="form-horizontal" action="/update_asset" method="get">
+        <p>资产ID： <input type="text" name="id"></p>
+        <p>资产编号：   <input type="text" name="asset_mark"></p>
+        <p>资产名称：   <input type="text" name="asset_name"></p>
+        <p>购买日期：   <input type="text" name="intake_date"></p>
+        <p>保修期：   <input type="text" name="warranty_period"></p>
+        <p>价格：   <input type="text" name="price"></p>
+        <p><input type="submit" value="提交"></p>
+    </form>
+
+    <script>
+        //!需要有表单验证
+        var rowdata = {{ data|safe }};
+        form = document.getElementById("form")
+        console.log(form)
+
+        id = document.getElementsByName("id")[0]
+        asset_mark = document.getElementsByName("asset_mark")[0]
+        asset_name = document.getElementsByName("asset_name")[0]
+        intake_date = document.getElementsByName("intake_date")[0]
+        warranty_period = document.getElementsByName("warranty_period")[0]
+        price = document.getElementsByName("price")[0]
+
+        id.value = rowdata[0][0]
+        asset_mark.value = rowdata[0][1]
+        asset_name.value = rowdata[0][2]
+        intake_date.value = rowdata[0][3]
+        warranty_period.value = rowdata[0][4]
+        price.value = rowdata[0][5]
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'insert_row_pre.html' %}
+
+{% block insert %}
+
+    <p id=title></p>
+
+    <form id="form" class="form-horizontal" action="/insert_asset" method="get">
+        <p>资产ID： <input type="text" name="id"></p>
+        <p>资产编号：   <input type="text" name="asset_mark"></p>
+        <p>资产名称：   <input type="text" name="asset_name"></p>
+        <p>购买日期：   <input type="text" name="intake_date"></p>
+        <p>保修期：   <input type="text" name="warranty_period"></p>
+        <p>价格：   <input type="text" name="price"></p>
+        <p><input type="submit" value="提交"></p>
+    </form>
+
+    <script>
+        //!需要有表单验证
+
+    </script>
+
+{% endblock %}

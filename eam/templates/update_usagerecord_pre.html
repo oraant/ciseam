@@ -1,0 +1,36 @@
+{% extends 'update_row_pre.html' %}
+
+{% block update %}
+
+    <p id=title></p>
+
+    <form id="form" class="form-horizontal" action="/update_usagerecord" method="get">
+        <p>记录ID： <input type="text" name="id"></p>
+        <p>资产ID：   <input type="text" name="asset_id"></p>
+        <p>用户ID：   <input type="text" name="user_id"></p>
+        <p>借出日期：   <input type="text" name="begin_date"></p>
+        <p>归还日期：   <input type="text" name="end_date"></p>
+        <p><input type="submit" value="提交"></p>
+    </form>
+
+    <script>
+        //!需要有表单验证
+        var rowdata = {{ data|safe }};
+        form = document.getElementById("form")
+        console.log(form)
+
+        id = document.getElementsByName("id")[0]
+        asset_id = document.getElementsByName("asset_id")[0]
+        user_id = document.getElementsByName("user_id")[0]
+        begin_date = document.getElementsByName("begin_date")[0]
+        end_date = document.getElementsByName("end_date")[0]
+
+        id.value = rowdata[0][0]
+        asset_id.value = rowdata[0][1]
+        user_id.value = rowdata[0][2]
+        begin_date.value = rowdata[0][3]
+        end_date.value = rowdata[0][4]
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'insert_row_pre.html' %}
+
+{% block insert %}
+
+    <p id=title></p>
+
+    <form id="form" class="form-horizontal" action="/insert_maintenance" method="get">
+        <p>记录ID：     <input type="text" name="id"></p>
+        <p>用户ID：     <input type="text" name="user_id"></p>
+        <p>资产ID：     <input type="text" name="asset_id"></p>
+        <p>故障原因：   <input type="text" name="fault_cause"></p>
+        <p>故障日期：   <input type="text" name="occur_date"></p>
+        <p>修复日期：   <input type="text" name="repair_date"></p>
+        <p>修复结果：   <input type="text" name="repair_result"></p>
+        <p><input type="submit" value="提交"></p>
+    </form>
+
+    <script>
+        //!需要有表单验证
+
+    </script>
+
+{% endblock %}

@@ -18,6 +18,12 @@ cursor.execute("SET NAMES utf8")
 def index(req):
     return render(req, 'index.html')
 
+def help(req):
+    return render(req, 'help.html')
+
+def about(req):
+    return render(req, 'about.html')
+
 #------------------------------------------------------------------------------------------------------------------
 #http://192.168.18.132:8000/filter_user/?id=&user_name=&tel=&qq=&email=&user_comment=
 def filter_user(req,exact=False):
@@ -31,7 +37,7 @@ def filter_user(req,exact=False):
 
 def fetch_user(req):
     sql='select id,user_name,tel,qq,email,user_comment from eam_user'
-    data=filter_data(sql,req,True)
+    data = filter_data(sql,req,True)
     return data
 
 def update_user(req):
@@ -66,54 +72,70 @@ def delete_user(req):
 def filter_asset(req,exact=False):
     column=['资产ID', '资产编号', '资产名称', '购买日期', '保修期', '价格']
 
-    sql='select id,asset_mark,asset_name,intake_date,warranty_period,price from eam_asset'
-    data=filter_data(sql,req,exact)
+    sql = 'select id,asset_mark,asset_name,intake_date,warranty_period,price from eam_asset'
+    data = filter_data(sql,req,exact)
 
     table = format_table(column,data)
     return render(req, 'show_asset.html', table)
-fetch_asset = functools.partial(filter_asset, exact=True)
 
+def fetch_asset(req):
+    sql = 'select id,asset_mark,asset_name,intake_date,warranty_period,price from eam_asset'
+    data = filter_data(sql,req,True)
+    return data
+    
 def update_asset(req):
     sql = 'update eam_asset'
     msg = update_data(sql,req)
-    return HttpResponse(msg)
+    msg = {'msg':msg}
+    return render(req, 'execute_msg.html', msg)
+
+def update_asset_pre(req):
+    data = fetch_asset(req)
+    data = json.dumps(data, cls=DjangoJSONEncoder)
+    data = {'data':data}
+    return render(req, 'update_asset_pre.html', data)
 
 def insert_asset(req):
     sql = 'insert into eam_asset'
     msg = insert_data(sql,req)
-    return HttpResponse(msg)
+    msg = {'msg':msg}
+    return render(req, 'execute_msg.html', msg)
+
+def insert_asset_pre(req):
+    return render(req, 'insert_asset_pre.html')
 
 def delete_asset(req):
     sql = 'delete from eam_asset'
     msg = delete_data(sql,req)
-    return HttpResponse(msg)
+    msg = {'msg':msg}
+    return render(req, 'execute_msg.html', msg)
 
 #------------------------------------------------------------------------------------------------------------------
 #http://192.168.18.132:8000/filter_attributes/?id=&asset_id=&attribute_key=&attribute_value
-def filter_attributes(req,exact=False):
-    column=['资产ID', '资产名称', '资产属性', '资产属性值']
-
-    sql='select b.id,b.asset_name,a.attribute_key,a.attribute_value from eam_attributes a join eam_asset b on a.asset_id=b.id'
-    data = filter_data(sql,req,exact)
-
-    table = format_table(column,data)
-    return render(req, 'show_table.html', table)
-fetch_attributes = functools.partial(filter_attributes, exact=True)
-
-def update_attributes(req):
-    sql='update eam_attributes'
-    msg = insert_data(sql,req)
-    return HttpResponse(msg)
-
-def insert_attributes(req):
-    sql = 'insert into eam_attributes'
-    msg = insert_data(sql,req)
-    return HttpResponse(msg)
-
-def delete_attributes(req):
-    sql = 'delete from eam_attributes'
-    msg = delete_data(sql,req)
-    return HttpResponse(msg)
+#def filter_attributes(req,exact=False):
+#    column=['资产ID', '资产名称', '资产属性', '资产属性值']
+#
+#    sql='select b.id,b.asset_name,a.attribute_key,a.attribute_value from eam_attributes a join eam_asset b on a.asset_id=b.id'
+#    data = filter_data(sql,req,True)
+#
+#    table = format_table(column,data)
+#    return render(req, 'show_table.html', table)
+#fetch_attributes = functools.partial(filter_attributes, exact=True)
+#
+#def update_attributes(req):
+#    sql='update eam_attributes'
+#    msg = insert_data(sql,req)
+#    return render(req, 'execute_msg.html', msg)
+#
+#def insert_attributes(req):
+#    sql = 'insert into eam_attributes'
+#    msg = insert_data(sql,req)
+#    return render(req, 'execute_msg.html', msg)
+#
+#def delete_attributes(req):
+#    sql = 'delete from eam_attributes'
+#    msg = delete_data(sql,req)
+#    return render(req, 'execute_msg.html', msg)
 
 #------------------------------------------------------------------------------------------------------------------
 #http://192.168.18.132:8000/filter_maintenance/?id=&asset_mark=&asset_name=&user_name=&fault_cause=&occur_date=&repair_date=&repair_result=
@@ -126,22 +148,38 @@ def filter_maintenance(req,exact=False):
 
     table = format_table(column,data)
     return render(req, 'show_maintenance.html', table)
-fetch_maintenance = functools.partial(filter_maintenance, exact=True)
+
+def fetch_maintenance(req):
+    sql='''select id,user_id,asset_id,fault_cause,occur_date,repair_date,repair_result from eam_maintenance'''
+    data = filter_data(sql,req,True)
+    return data
 
 def update_maintenance(req):
     sql = 'update eam_maintenance'
     msg = update_data(sql,req)
-    return HttpResponse(msg)
+    msg = {'msg':msg}
+    return render(req, 'execute_msg.html', msg)
+
+def update_maintenance_pre(req):
+    data = fetch_maintenance(req)
+    data = json.dumps(data, cls=DjangoJSONEncoder)
+    data = {'data':data}
+    return render(req, 'update_maintenance_pre.html', data)
 
 def insert_maintenance(req):
     sql = 'insert into eam_maintenance'
     msg = insert_data(sql,req)
-    return HttpResponse(msg)
+    msg = {'msg':msg}
+    return render(req, 'execute_msg.html', msg)
+
+def insert_maintenance_pre(req):
+    return render(req, 'insert_maintenance_pre.html')
 
 def delete_maintenance(req):
     sql = 'delete from eam_maintenance'
     msg = delete_data(sql,req)
-    return HttpResponse(msg)
+    msg = {'msg':msg}
+    return render(req, 'execute_msg.html', msg)
 
 #------------------------------------------------------------------------------------------------------------------
 #http://192.168.18.132:8000/filter_usagerecord?id=&asset_name=&asset_mark&user_name=&begin_date=&end_date
@@ -152,22 +190,38 @@ def filter_usagerecord(req,exact=False):
 
     table = format_table(column,data)
     return render(req, 'show_usagerecord.html', table)
-fetch_usagerecord = functools.partial(filter_usagerecord, exact=True)
+
+def fetch_usagerecord(req):
+    sql='select id,asset_id,user_id,begin_date,end_date from eam_usagerecord'
+    data = filter_data(sql,req,True)
+    return data
 
 def update_usagerecord(req):
     sql = 'update eam_usagerecord'
     msg = update_data(sql,req)
-    return HttpResponse(msg)
+    msg = {'msg':msg}
+    return render(req, 'execute_msg.html', msg)
+
+def update_usagerecord_pre(req):
+    data = fetch_usagerecord(req)
+    data = json.dumps(data, cls=DjangoJSONEncoder)
+    data = {'data':data}
+    return render(req, 'update_usagerecord_pre.html', data)
 
 def insert_usagerecord(req):
     sql = 'insert into eam_usagerecord'
     msg = insert_data(sql,req)
-    return HttpResponse(msg)
+    msg = {'msg':msg}
+    return render(req, 'execute_msg.html', msg)
+
+def insert_usagerecord_pre(req):
+    return render(req, 'insert_usagerecord_pre.html')
 
 def delete_usagerecord(req):
     sql = 'delete from eam_usagerecord'
     msg = delete_data(sql,req)
-    return HttpResponse(msg)
+    msg = {'msg':msg}
+    return render(req, 'execute_msg.html', msg)
 
 #------------------------------------------------------------------------------------------------------------------
 #id must be the first column

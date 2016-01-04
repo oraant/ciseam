@@ -1,0 +1,42 @@
+{% extends 'update_row_pre.html' %}
+
+{% block update %}
+
+    <p id=title></p>
+
+    <form id="form" class="form-horizontal" action="/update_maintenance" method="get">
+        <p>记录ID：     <input type="text" name="id"></p>
+        <p>责任人ID：     <input type="text" name="user_id"></p>
+        <p>资产ID：     <input type="text" name="asset_id"></p>
+        <p>故障原因：   <input type="text" name="fault_cause"></p>
+        <p>故障日期：   <input type="text" name="occur_date"></p>
+        <p>修复日期：   <input type="text" name="repair_date"></p>
+        <p>修复结果：   <input type="text" name="repair_result"></p>
+        <p><input type="submit" value="提交"></p>
+    </form>
+
+    <script>
+        //!需要有表单验证
+        var rowdata = {{ data|safe }};
+        form = document.getElementById("form")
+        console.log(form)
+
+        id = document.getElementsByName("id")[0]
+        user_id = document.getElementsByName("user_id")[0]
+        asset_id = document.getElementsByName("asset_id")[0]
+        fault_cause = document.getElementsByName("fault_cause")[0]
+        occur_date = document.getElementsByName("occur_date")[0]
+        repair_date = document.getElementsByName("repair_date")[0]
+        repair_result = document.getElementsByName("repair_result")[0]
+
+        id.value = rowdata[0][0]
+        user_id.value = rowdata[0][1]
+        asset_id.value = rowdata[0][2]
+        fault_cause.value = rowdata[0][3]
+        occur_date.value = rowdata[0][4]
+        repair_date.value = rowdata[0][5]
+        repair_result.value = rowdata[0][6]
+
+    </script>
+
+{% endblock %}

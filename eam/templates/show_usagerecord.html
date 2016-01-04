@@ -6,13 +6,17 @@
         var headlist = {{ headlist|safe }};
         var bodylist = {{ bodylist|safe }};
     
+        base_table = "usagerecord"
+        window.update_link_g = "/update_" + base_table + "_pre/"
+        window.delete_link_g = "/delete_" + base_table
+        window.insert_link_g = "/insert_" + base_table + "_pre/"
+    
         var table = document.getElementById("table");
         fillTable(table,headlist,bodylist)
         extendTable(table)
-    
+
         //为一个table增加扩展列
         function extendTable(tab){
-            base_table = "usagerecord"
     
             th = document.createElement("th")
             th.innerHTML = "扩展"
@@ -22,20 +26,34 @@
                 tr = tab.tBodies[0].rows[i]
                 id = tr.cells[0].innerHTML
                 td = tr.insertCell()
-    
+
+                update_link = window.update_link_g + "/?id=" + id
+                delete_link = window.delete_link_g + "/?id=" + id
+
                 link1 = document.createElement("a");
                 link1.innerHTML = "修改"
-                link1.href = "http://" + window.location.host + "/update_" + base_table + "/?id=" + id
+                link1.href = update_link
     
                 link2 = document.createElement("a");
                 link2.innerHTML = "删除"
-                link2.href = "http://" + window.location.host + "/delete_" + base_table + "/?id=" + id
+                link2.href="javascript:delete_confirm('" + delete_link + "')"
     
                 td.appendChild(link1)
                 td.appendChild(document.createTextNode(' / '))
                 td.appendChild(link2)
             }
         }
+
+        function delete_confirm(url){
+            var del = confirm("确定要删除这条数据吗")
+            //var del = confirm(url)
+            if (del==true){location.href=url}
+            }
+
+        function insert(){
+            location.href=window.insert_link_g
+            }
+
     </script>
 
 {% endblock%}
